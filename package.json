@@ -1,0 +1,20 @@
+{
+  "name": "smart_calculator_backend",
+  "version": "1.0.0",
+  "description": "Backend en Node.js para obtener tasas BCV y precio USDT P2P Binance",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
