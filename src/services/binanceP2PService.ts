@@ -33,14 +33,16 @@ export async function getBinanceUsdtP2PPrice({
 
   const data = response.data as any;
 
-  // Obtener el precio de USDT desde Yadio
-  const usdtPrice = data?.USD?.other?.usdt?.rate;
+  // Yadio exposes the USDT/<fiat> P2P rate under data.<fiat>.rate_p2p.
+  // (It used to live at data.USD.other.usdt.rate, which Yadio removed; reading
+  // the old path returned undefined and silently broke the price feed.)
+  const usdtPrice = data?.[fiat]?.rate_p2p;
 
-  if (!usdtPrice) {
-    throw new Error('No se encontró el precio de USDT en la respuesta de Yadio');
+  if (usdtPrice === undefined || usdtPrice === null) {
+    throw new Error(`No se encontró el precio P2P de USDT/${fiat} en la respuesta de Yadio`);
   }
 
-  const price = parseFloat(usdtPrice);
+  const price = Number(usdtPrice);
 
   return {
     asset,
